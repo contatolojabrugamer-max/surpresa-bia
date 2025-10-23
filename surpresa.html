@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Surpresa 💙</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #001f3f, #004b91);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 30px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    h1 {
+      margin-top: 60px;
+      font-size: 1.8em;
+      letter-spacing: 1px;
+      animation: aparecer 1.5s ease-in-out;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 450px;
+      cursor: pointer;
+      display: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card.show {
+      display: block;
+      animation: aparecer 0.6s ease forwards;
+    }
+
+    #pergaminho {
+      display: none;
+      background-color: #fff8e6;
+      color: #333;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 40px;
+      font-style: italic;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      animation: aparecer 0.8s ease forwards;
+      line-height: 1.6;
+    }
+
+    #resposta {
+      margin-top: 30px;
+      display: none;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .sim { background-color: #4CAF50; color: white; }
+    .nao { background-color: #e74c3c; color: white; }
+    .btn:hover { transform: scale(1.05); }
+
+    #mensagemFinal {
+      margin-top: 25px;
+      font-weight: bold;
+      font-size: 1.2em;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    #mensagemFinal.show {
+      opacity: 1;
+    }
+
+    /* ❤️ Corações animados */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      color: #ff6699;
+      font-size: 24px;
+      animation: subir 4s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes subir {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="violino.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <h1>Clique na carta para começar 💌</h1>
+
+  <div class="card show" id="card0" onclick="mostrarProxima(1)">
+    Leia com calma… cada parte foi pensada pra você. 💙
+  </div>
+
+  <div class="card" id="card1" onclick="mostrarProxima(2)">
+    Depois de um dia cheio, o sabor do <strong>sushi</strong> 🍣 é o descanso que combina contigo.
+  </div>
+
+  <div class="card" id="card2" onclick="mostrarProxima(3)">
+    Entre risadas e vento no rosto, quero te levar pra <strong>pedalar</strong> 🚴‍♀️ e esquecer o tempo.
+  </div>
+
+  <div class="card" id="card3" onclick="mostrarProxima(4)">
+    O mar te chama, e o brilho da lua te espera para um <strong>banho à noite</strong> 🌙🌊
+  </div>
+
+  <div class="card" id="card4" onclick="mostrarProxima(5)">
+    E se faltar alguma lembrança, a gente cria outra no <strong>museu</strong> 🖼️ — com sorrisos e fotos novas.
+  </div>
+
+  <div class="card" id="card5" onclick="mostrarProxima(6)">
+    Um <strong>vinho</strong> 🍷, uma conversa sem pressa.
+  </div>
+
+  <div class="card" id="card6" onclick="mostrarProxima('pergaminho')">
+    Então… se arrume, porque essa história termina em um <strong>jantar</strong> especial ✨
+  </div>
+
+  <div id="pergaminho">
+    Imagine: um fim de semana só nosso.  
+    Sushi pra começar leve, pedal pra sorrir, o mar pra nos acolher, o museu pra guardar momentos  
+    e o vinho pra aquecer a noite…  
+    <br><br>
+    Depois, um jantar — daqueles que a gente vive, não só come. 💙  
+    <br><br>
+    E tudo isso começa com uma resposta…
+  </div>
+
+  <div id="resposta">
+    <p>Você aceita? 💫</p>
+    <button class="btn sim" onclick="mostrarMensagem(true)">Sim 💙</button>
+    <button class="btn nao" onclick="mostrarMensagem(false)">Talvez depois 🌙</button>
+    <div id="mensagemFinal"></div>
+  </div>
+
+  <script>
+    function mostrarProxima(id) {
+      if (typeof id === "number") {
+        const card = document.getElementById("card" + id);
+        card.classList.add("show");
+      } else if (id === "pergaminho") {
+        document.getElementById("pergaminho").style.display = "block";
+        document.getElementById("resposta").style.display = "block";
+        document.getElementById("resposta").scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function mostrarMensagem(aceitou) {
+      const msg = aceitou
+        ? "Então prepare-se... o fim de semana está prestes a começar 💌✨"
+        : "Tudo bem, o tempo certo sempre chega 🌙";
+      const mensagemFinal = document.getElementById("mensagemFinal");
+      mensagemFinal.innerText = msg;
+      mensagemFinal.classList.add("show");
+
+      if (aceitou) {
+        criarCoracoes();
+      }
+    }
+
+    // Função para gerar corações flutuando
+    function criarCoracoes() {
+      for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+  </script>
+</body>
+</html>
